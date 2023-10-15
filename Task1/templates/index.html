@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cancer Image Classifier</title>
+    </head>
+    <body>
+        <h1>Image Classifier</h1>
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image">
+            <input type="submit" value="Upload">
+        </form>
+        <button onclick="window.location.href='/shutdown'">Shutdown</button>
+        <br>
+        {% if prediction %}
+            <h2>Prediction: {{ prediction }}</h2>
+            <img src="{{ imgPath }}" alt="Uploaded Image">
+        {% endif %}
+    </body>
+</html>
