@@ -13,7 +13,13 @@
         <button onclick="window.location.href='/shutdown'">Shutdown</button>
         <br/>
         {% if prediction %}
-            <h2>Prediction: {{ prediction }}</h2>
+        <p>Prediction:
+            <br/>
+            {{ prediction}}</p>
+        <br/>
+        <p>Actual:
+            <br/>
+            {{ actualData }}</p>
         {% endif %}
     </body>
 </html>
