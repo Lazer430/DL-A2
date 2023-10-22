@@ -5,7 +5,8 @@ import os
 import signal
 
 
-# predict classes
+# This function is used to predict the class of the image
+# returns the predicted class based on highest probability
 def predict_classes(model, x_test):
     y_pred = model.predict(x_test)
     classes = np.argmax(y_pred, axis=1)
@@ -17,17 +18,24 @@ model = tf.keras.models.load_model("task1.keras")
 app = Flask(__name__)
 
 
+# this is the home page of our flask app and simply returns the index.html
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
+# this is the shutdown page of our flask app and kills the server
 @app.get("/shutdown")
 def shutdown():
     os.kill(os.getpid(), signal.SIGINT)
     return "Server shut down"
 
 
+# this is the predict page of our flask app and returns the predicted class of the image
+# and also saves the image in the static/uploaded folder
+# and returns the path of the image to be displayed on the webpage
+# the image is loaded, converted to array and then expanded in dimensions
+# the prediction is made and the class with highest probability is returned
 @app.route("/predict", methods=["POST"])
 def upload():
     fileUploaded = request.files["image"]
