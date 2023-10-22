@@ -19,7 +19,7 @@ cols = ["Open", "High", "Low", "Close", "Adj Close", "Volume"]
 numberOfInputDays = 7
 
 
-# predict classes
+# predict prices for the next day based on the last 7 days
 def predict(model, data):
     # with tf.device(device_name=device):
     last_n_days = data[-numberOfInputDays:]
@@ -29,6 +29,10 @@ def predict(model, data):
     return real_predicted_price
 
 
+# perform preprocessing on the data
+# fill the missing values
+# scale the data
+# return the preprocessed data
 def preprocessing(data):
     global dateToPredict, dateToPredictNext
     data = data.ffill()
@@ -46,17 +50,23 @@ def preprocessing(data):
 app = Flask(__name__)
 
 
+# this is the home page of our flask app and simply returns the index.html
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
+# this is the shutdown page of our flask app and kills the server
 @app.get("/shutdown")
 def shutdown():
     os.kill(os.getpid(), signal.SIGINT)
     return "Server shut down"
 
 
+# this is the predict page of our flask app and returns the predicted prices
+# the csv is loaded, preprocessed and then the prediction is made
+# only last 7 days are used for prediction
+# actual data is downloaded from yahoo finance and also returned for comparison
 @app.route("/predict", methods=["POST"])
 def upload():
     fileUploaded = request.files["csv"]
