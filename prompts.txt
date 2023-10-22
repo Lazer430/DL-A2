@@ -1,0 +1,4 @@
+1. How can I obtain Yahoo finance data in python?
+2. What can I do to ensure CNN is not overfitting?
+3. Tell me what libraries can I use for Data Augmentation of Skin Disease Image Dataset
+4. Tell me how to make a custom keras call back that stops training when val_accuracy is 1
