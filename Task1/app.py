@@ -40,8 +40,8 @@ def upload():
     imageArr = tf.keras.preprocessing.image.img_to_array(image)
     imageArr = np.expand_dims(imageArr, axis=0)
 
-    with tf.device("/Gpu:0"):
-        prediction = model.predict(imageArr)
+    # with tf.device("/Gpu:0"):
+    prediction = model.predict(imageArr)
     prediectedClass = np.argmax(prediction)
 
     return render_template(
