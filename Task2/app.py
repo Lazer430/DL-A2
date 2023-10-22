@@ -9,7 +9,7 @@ from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 import yfinance as yf
 
-device = None
+# device = None
 model = tf.keras.models.load_model("task2.keras")
 scaler = MinMaxScaler(feature_range=(0, 1))
 dateToPredict = None
@@ -21,11 +21,11 @@ numberOfInputDays = 7
 
 # predict classes
 def predict(model, data):
-    with tf.device(device_name=device):
-        last_n_days = data[-numberOfInputDays:]
-        last_n_days = last_n_days.reshape((1, numberOfInputDays, len(cols)))
-        prediction = model.predict(last_n_days)
-        real_predicted_price = scaler.inverse_transform(prediction)
+    # with tf.device(device_name=device):
+    last_n_days = data[-numberOfInputDays:]
+    last_n_days = last_n_days.reshape((1, numberOfInputDays, len(cols)))
+    prediction = model.predict(last_n_days)
+    real_predicted_price = scaler.inverse_transform(prediction)
     return real_predicted_price
 
 
@@ -75,7 +75,7 @@ def upload():
 
         # if "Date" in actualData.columns:
         #     actualData = actualData.Drop(["Date"], axis=1)
-        actualData = str(actualData[1:])
+        actualData = str(actualData[1:].values)
         prediction = str(prediction[0])
 
     else:
@@ -86,9 +86,9 @@ def upload():
 
 # Run the Flask app
 if __name__ == "__main__":
-    gpus = tf.config.list_physical_devices("GPU")
-    if gpus:
-        device = "/device:GPU:0"
-    else:
-        device = "/device:CPU:0"
+    # gpus = tf.config.list_physical_devices("GPU")
+    # if gpus:
+    #     device = "/device:GPU:0"
+    # else:
+    #     device = "/device:CPU:0"
     app.run(port=5004)
