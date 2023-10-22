@@ -91,4 +91,4 @@ if __name__ == "__main__":
     #     device = "/device:GPU:0"
     # else:
     #     device = "/device:CPU:0"
-    app.run(port=5004)
+    app.run(port=5000)
